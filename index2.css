@@ -14,3 +14,7 @@ body{
 .marcar-ok{
     text-decoration: line-through;
 }
+
+.text-justify{
+    text-align: justify;
+}

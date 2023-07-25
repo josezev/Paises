@@ -1,29 +1,27 @@
-
-
-let pais = document.getElementById("pais");
+let nombre = document.getElementById("nombre");
 /* funciones para validar input*/
 function validarTexto() {
-    let span = document.getElementById("validpais");
+    let span = document.getElementById("validnombre");
     const regex = /^[A-Za-z]+$/;
-    if (!regex.test(pais.value)) {
+    if (!regex.test(nombre.value)) {
         span.style = "display:block";
         span.innerText = "Por favor, introduce solo caracteres de texto.";
         span.className = "text-danger";
-        pais.className = "form-control border-input-error";
+        nombre.className = "form-control border-input-error";
         return false;
     }
     else {
         span.innerText = "";
         span.style = "display:none;";
-        pais.className = "form-control border-input-ok";
+        nombre.className = "form-control border-input-ok";
         return true;
     }
 }
-pais.addEventListener('input', validarTexto);
+nombre.addEventListener('input', validarTexto);
 
-let correo = document.getElementById("capital");
+let correo = document.getElementById("apellido");
 function validarCorreo() {
-    let validCorreo = document.getElementById("validcapital");
+    let validCorreo = document.getElementById("validapellido");
     var regex = /^[A-Za-z]+$/;
     if (!regex.test(correo.value)) {
         validCorreo.style = "display:block";
@@ -42,77 +40,28 @@ function validarCorreo() {
 }
 correo.addEventListener("input", validarCorreo);
 
-let region = document.getElementById("region");
-function validarregion() {
-    let validregion = document.getElementById("validregion");
+let telefono = document.getElementById("telefono");
+function validartelefono() {
+    let validtelefono = document.getElementById("validtelefono");
     var regex = /^[A-Za-z]+$/;
-    if (!regex.test(region.value)) {
-        validregion.style = "display:block";
-        validregion.innerText = "Por favor, introduce solo caracteres de texto";
-        validregion.className = "text-danger";
+    if (!regex.test(telefono.value)) {
+        validtelefono.style = "display:block";
+        validtelefono.innerText = "Por favor, introduce solo caracteres de texto";
+        validtelefono.className = "text-danger";
 
-        region.className = "form-control border-input-error";
+        telefono.className = "form-control border-input-error";
         return false;
     }
     else {
-        validregion.style = "display:none";
-        validregion.innerText = "";
-        region.className = "form-control border-input-ok";
+        validtelefono.style = "display:none";
+        validtelefono.innerText = "";
+        telefono.className = "form-control border-input-ok";
         return true;
     }
 }
-region.addEventListener("input", validarregion);
-
-let continente = document.getElementById("continente");
-function validarcontinente() {
-    let validcontinente = document.getElementById("validcontinente");
-    var regex = /^[A-Za-z]+$/;
-    if (!regex.test(continente.value)) {
-        validcontinente.style = "display:block";
-        validcontinente.innerText = "Por favor, introduce solo caracteres de texto";
-        validcontinente.className = "text-danger";
-
-        continente.className = "form-control border-input-error";
-        return false;
-    }
-    else {
-        validcontinente.style = "display:none";
-        validcontinente.innerText = "";
-        continente.className = "form-control border-input-ok";
-        return true;
-    }
-}
-continente.addEventListener("input", validarcontinente);
-
-let descripcion = document.getElementById("descripcion");
-
+telefono.addEventListener("input", validartelefono);
 
 let array = []; //es un array o variable global
-
-//forma 2
-function getApi(){
-    const url = "https://restcountries.com/v3.1/lang/spanish";
-    fetch(url)
-    .then(function(response){
-        return response.json();
-    }).then(function(data){
-        array=[];
-        data.forEach(ob=>{
-            const data_api={
-                pais:ob.name.common,
-                capital:ob.capital[0],
-                region:ob.region,
-                continente:ob.continents[0]
-            };
-            array.push(data_api);
-        });
-        console.table(array);
-        actualizarTablaHtml();
-    })
-    .catch(function(error){
-        console.log(error);
-    });
-}
 
 
 getApi();
@@ -120,16 +69,14 @@ function leerForms() {
 
     let valid0 = validarTexto();
     let valid1 = validarCorreo();
-    let valid2 = validarregion();
-    let valid3 = validarcontinente();
+    let valid2 = validartelefono();
 
-    if (valid0 && valid1 && valid2 && valid3 == true) {
+    if (valid0 && valid1 && valid2  == true) {
         // crear un objeto en javascript
         let objeto = {
-            "pais": pais.value,
-            "capital": capital.value,
-            "region": region.value,
-            "continente": continente.value,
+            "nombre": nombre.value,
+            "apellido": apellido.value,
+            "telefono": telefono.value,
             "fecha": Date(),
             "estado": false
 
@@ -149,31 +96,26 @@ function actualizarTablaHtml() {
 
         //crear la fila
         let fila = document.createElement('tr');
-        //crear la columna pais
-        let columnapais = document.createElement('td');
-        columnapais.textContent = array[i].pais; //pasar el dato
-        fila.appendChild(columnapais); // add columna a la fila
+        //crear la columna nombre
+        let columnanombre = document.createElement('td');
+        columnanombre.textContent = array[i].nombre; //pasar el dato
+        fila.appendChild(columnanombre); // add columna a la fila
 
-        //crear la columna capital
-        let columnacapital = document.createElement('td');
-        columnacapital.textContent = array[i].capital; //pasar el dato
-        fila.appendChild(columnacapital); // add columna a la fila
+        //crear la columna apellido
+        let columnaapellido = document.createElement('td');
+        columnaapellido.textContent = array[i].apellido; //pasar el dato
+        fila.appendChild(columnaapellido); // add columna a la fila
 
-        //crear la columna region
-        let columnaregion = document.createElement('td');
-        columnaregion.textContent = array[i].region; //pasar el dato
-        fila.appendChild(columnaregion); // add columna a la fila
-
-        //crear la columna continente
-        let columnacontinen = document.createElement('td');
-        columnacontinen.textContent = array[i].continente; //pasar el dato
-        fila.appendChild(columnacontinen); // add columna a la fila
+        //crear la columna telefono
+        let columnatelefono = document.createElement('td');
+        columnatelefono.textContent = array[i].telefono; //pasar el dato
+        fila.appendChild(columnatelefono); // add columna a la fila
 
         let columnaOPciones = document.createElement('td');
         //crear boton eliminar
         let btneliminar = document.createElement('button');
-        btneliminar.textContent = "Eliminar";
-        btneliminar.className = "btn btn-danger me-2";
+        btneliminar.textContent = "";
+        btneliminar.className = "btn-close";
         btneliminar.addEventListener('click', function () {
             eliminar(i);
         });

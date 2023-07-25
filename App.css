@@ -1,0 +1,38 @@
+body{
+  font-family: cursive;
+}
+.card{
+   padding: 4px;
+   margin: 3px;
+   border: 2px solid antiquewhite;
+   background-color: antiquewhite;
+  border-radius: 0px;
+}
+ .close-button {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close-button::before,
+    .close-button::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 15px;
+      background-color: #000;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .close-button::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .close-button::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
